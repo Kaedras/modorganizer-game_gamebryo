@@ -8,9 +8,10 @@
 #include <utility.h>
 
 #include <QDir>
+#include <QSettings>
 #include <QStringList>
 
-#include <Windows.h>
+using namespace Qt::Literals::StringLiterals;
 
 GamebryoBSAInvalidation::GamebryoBSAInvalidation(MOBase::DataArchives* dataArchives,
                                                  const QString& iniFilename,
@@ -47,15 +48,18 @@ bool GamebryoBSAInvalidation::prepareProfile(MOBase::IProfile* profile)
                             ? profile->absolutePath()
                             : m_Game->documentsDirectory().absolutePath();
   QString iniFilePath = basePath + "/" + m_IniFileName;
-  WCHAR setting[MAX_PATH];
+
+  QSettings ini(iniFilePath, QSettings::IniFormat);
+
+  static const QString bInvalidateOlderFiles   = u"Archive/bInvalidateOlderFiles"_s;
+  static const QString SInvalidationFile       = u"Archive/SInvalidationFile"_s;
+  static const QString archiveInvalidationFile = u"ArchiveInvalidation.txt"_s;
 
   // write bInvalidateOlderFiles = 1, if needed
-  if (!::GetPrivateProfileStringW(L"Archive", L"bInvalidateOlderFiles", L"0", setting,
-                                  MAX_PATH, iniFilePath.toStdWString().c_str()) ||
-      wcstol(setting, nullptr, 10) != 1) {
+  if (ini.value(bInvalidateOlderFiles, "0").toString() != "1") {
     dirty = true;
-    if (!MOBase::WriteRegistryValue(L"Archive", L"bInvalidateOlderFiles", L"1",
-                                    iniFilePath.toStdWString().c_str())) {
+    ini.setValue(bInvalidateOlderFiles, "1");
+    if (ini.status() != QSettings::NoError) {
       qWarning("failed to activate BSA invalidation in \"%s\"",
                qUtf8Printable(m_IniFileName));
     }
@@ -86,13 +90,10 @@ bool GamebryoBSAInvalidation::prepareProfile(MOBase::IProfile* profile)
     }
 
     // write SInvalidationFile = "", if needed
-    if (::GetPrivateProfileStringW(L"Archive", L"SInvalidationFile",
-                                   L"ArchiveInvalidation.txt", setting, MAX_PATH,
-                                   iniFilePath.toStdWString().c_str()) ||
-        wcscmp(setting, L"") != 0) {
+    if (ini.value(SInvalidationFile, "").toString() != "") {
       dirty = true;
-      if (!MOBase::WriteRegistryValue(L"Archive", L"SInvalidationFile", L"",
-                                      iniFilePath.toStdWString().c_str())) {
+      ini.setValue(SInvalidationFile, "");
+      if (ini.status() != QSettings::NoError) {
         qWarning("failed to activate BSA invalidation in \"%s\"",
                  qUtf8Printable(m_IniFileName));
       }
@@ -111,18 +112,15 @@ bool GamebryoBSAInvalidation::prepareProfile(MOBase::IProfile* profile)
     // delete the dummy bsa, if needed
     QString bsaFile = m_Game->dataDirectory().absoluteFilePath(invalidationBSAName());
     if (QFile::exists(bsaFile)) {
-      MOBase::shellDeleteQuiet(bsaFile);
+      MOBase::shellDelete({bsaFile});
       dirty = true;
     }
 
     // write SInvalidationFile = "ArchiveInvalidation.txt", if needed
-    if (!::GetPrivateProfileStringW(L"Archive", L"SInvalidationFile", L"", setting,
-                                    MAX_PATH, iniFilePath.toStdWString().c_str()) ||
-        wcscmp(setting, L"ArchiveInvalidation.txt") != 0) {
+    if (ini.value(SInvalidationFile, "").toString() != archiveInvalidationFile) {
       dirty = true;
-      if (!MOBase::WriteRegistryValue(L"Archive", L"SInvalidationFile",
-                                      L"ArchiveInvalidation.txt",
-                                      iniFilePath.toStdWString().c_str())) {
+      ini.setValue(SInvalidationFile, archiveInvalidationFile);
+      if (ini.status() != QSettings::NoError) {
         qWarning("failed to activate BSA invalidation in \"%s\"",
                  qUtf8Printable(m_IniFileName));
       }

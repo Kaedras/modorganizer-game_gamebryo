@@ -122,9 +122,6 @@ protected:
       }
     }
 
-    template <>
-    void read<QString>(QString& value);
-
     void seek(unsigned long pos)
     {
       if (!m_File.seek(pos)) {

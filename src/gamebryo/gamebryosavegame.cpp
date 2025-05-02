@@ -10,7 +10,6 @@
 #include <QScopedArrayPointer>
 #include <QTime>
 
-#include <Windows.h>
 #include <lz4.h>
 #include <zlib.h>
 

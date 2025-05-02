@@ -15,11 +15,16 @@ class UnmanagedMods;
 
 #include <QObject>
 #include <QString>
-#include <ShlObj.h>
-#include <dbghelp.h>
 #include <ipluginfilemapper.h>
 #include <iplugingame.h>
 #include <memory>
+
+#ifdef __unix__
+#include "linux/windowsTypes.h"
+#else
+#include <ShlObj.h>
+#include <dbghelp.h>
+#endif
 
 #include "gamebryosavegame.h"
 #include "igamefeatures.h"
@@ -99,7 +104,7 @@ protected:
 
   QFileInfo findInGameFolder(const QString& relativePath) const;
   QString selectedVariant() const;
-  WORD getArch(QString const& program) const;
+  uint16_t getArch(QString const& program) const;
 
   static QString localAppFolder();
   // Arguably this shouldn't really be here but every gamebryo program seems to
@@ -129,6 +134,11 @@ protected:
   static QString getSpecialPath(const QString& name);
 
   static QString determineMyGamesPath(const QString& gameName);
+
+#ifdef __unix__
+  // get "My Games" location from wine prefix
+  static QString determineMyGamesPath(const QString& gameName, const QString& appID);
+#endif
 
   static QString parseEpicGamesLocation(const QStringList& manifests);
 

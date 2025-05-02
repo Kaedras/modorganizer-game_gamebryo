@@ -1,11 +1,12 @@
 #include "gamebryodataarchives.h"
 
-#include <Windows.h>
-
+#include <QSettings>
 #include <registry.h>
 #include <utility.h>
 
 #include "gamegamebryo.h"
+
+using namespace Qt::Literals::StringLiterals;
 
 GamebryoDataArchives::GamebryoDataArchives(const GameGamebryo* game) : m_Game{game} {}
 
@@ -23,33 +24,26 @@ QStringList GamebryoDataArchives::getArchivesFromKey(const QString& iniFile,
                                                      const QString& key,
                                                      const int size) const
 {
-  wchar_t* buffer = new wchar_t[size];
+  QSettings ini(iniFile, QSettings::IniFormat);
   QStringList result;
-  std::wstring iniFileW = QDir::toNativeSeparators(iniFile).toStdWString();
-
-  // epic ms fail: GetPrivateProfileString uses errno (for whatever reason) to signal a
-  // fail since the return value has a different meaning (number of bytes copied).
-  // HOWEVER, it will not set errno to 0 if NO error occured
-  errno = 0;
-
-  if (::GetPrivateProfileStringW(L"Archive", key.toStdWString().c_str(), L"", buffer,
-                                 size, iniFileW.c_str()) != 0) {
-    result.append(QString::fromStdWString(buffer).split(','));
+  auto value = ini.value(u"Archive/"_s % key);
+  if (value.isValid()) {
+    result = value.toString().split(',');
   }
 
-  for (int i = 0; i < result.count(); ++i) {
-    result[i] = result[i].trimmed();
+  for (auto& item : result) {
+    item = item.trimmed();
   }
-  delete[] buffer;
+
   return result;
 }
 
 void GamebryoDataArchives::setArchivesToKey(const QString& iniFile, const QString& key,
                                             const QString& value)
 {
-  if (!MOBase::WriteRegistryValue(L"Archive", key.toStdWString().c_str(),
-                                  value.toStdWString().c_str(),
-                                  iniFile.toStdWString().c_str())) {
+  if (!MOBase::WriteRegistryValue(u"Archive"_s, key,
+                                  value,
+                                  iniFile)) {
     qWarning("failed to set archives in \"%s\"", qUtf8Printable(iniFile));
   }
 }
