@@ -200,6 +200,7 @@ protected:
   };
 
   void setCreationTime(_SYSTEMTIME const& time);
+  void setCreationTime(QDateTime const& time);
 
   GameGamebryo const* m_Game;
   bool m_MediumEnabled;
