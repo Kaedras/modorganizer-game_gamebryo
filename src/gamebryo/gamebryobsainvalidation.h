@@ -24,7 +24,7 @@ public:
 
 private:
   virtual QString invalidationBSAName() const = 0;
-  virtual unsigned long
+  virtual uint32_t
   bsaVersion() const = 0;  // 0x67 for oblivion, 0x68 for everything else
 
 private:

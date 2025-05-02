@@ -207,9 +207,9 @@ protected:
 
   QString m_FileName;
   QString m_PCName;
-  unsigned short m_PCLevel;
+  uint16_t m_PCLevel;
   QString m_PCLocation;
-  unsigned long m_SaveNumber;
+  uint32_t m_SaveNumber;
   QDateTime m_CreationTime;
 
   // Those three fields are usually much slower to fetch than
