@@ -142,27 +142,27 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="gamebryosavegame.cpp" line="48"/>
+        <location filename="gamebryosavegame.cpp" line="47"/>
         <source>%1, #%2, Level %3, %4</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="gamebryosavegame.cpp" line="102"/>
+        <location filename="gamebryosavegame.cpp" line="101"/>
         <source>failed to open %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="gamebryosavegame.cpp" line="112"/>
+        <location filename="gamebryosavegame.cpp" line="111"/>
         <source>wrong file format - expected %1 got &apos;%2&apos; for %3</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="gamegamebryo.cpp" line="318"/>
+        <location filename="win32/gamegamebryo_win32.cpp" line="92"/>
         <source>failed to query registry path (preflight): %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="gamegamebryo.cpp" line="326"/>
+        <location filename="win32/gamegamebryo_win32.cpp" line="100"/>
         <source>failed to query registry path (read): %1</source>
         <translation type="unfinished"></translation>
     </message>
