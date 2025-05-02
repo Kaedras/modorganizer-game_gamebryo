@@ -14,10 +14,3 @@ enum keys
   HKEY_LOCAL_MACHINE,
   HKEY_CURRENT_USER
 };
-
-// https://learn.microsoft.com/en-us/windows/win32/api/minwinbase/ns-minwinbase-filetime
-typedef struct _FILETIME
-{
-  DWORD dwLowDateTime;
-  DWORD dwHighDateTime;
-} FILETIME, *PFILETIME, *LPFILETIME;
