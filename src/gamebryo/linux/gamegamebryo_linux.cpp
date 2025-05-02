@@ -24,8 +24,8 @@ QString GameGamebryo::localAppFolder()
   return {};
 }
 
-std::unique_ptr<BYTE[]> GameGamebryo::getRegValue(HKEY, LPCWSTR, LPCWSTR,
-                                                  DWORD, LPDWORD)
+std::unique_ptr<BYTE[]> GameGamebryo::getRegValue(HKEY, LPCWSTR, LPCWSTR, DWORD,
+                                                  LPDWORD)
 {
   // this function is probably not needed
   return {};
@@ -37,8 +37,7 @@ QString GameGamebryo::findInRegistry(HKEY, LPCWSTR, LPCWSTR)
   return {};
 }
 
-QString GameGamebryo::getKnownFolderPath(REFKNOWNFOLDERID folderId,
-                                         bool)
+QString GameGamebryo::getKnownFolderPath(REFKNOWNFOLDERID folderId, bool)
 {
   // use folderId as QStandardPaths::StandardLocation
   return QStandardPaths::standardLocations(
@@ -104,7 +103,7 @@ QString GameGamebryo::determineMyGamesPath(const QString& gameName,
           QStringLiteral("../../compatdata/%1/pfx/drive_c/users/steamuser/Documents")
               .arg(appID))) {
     return {};
-              }
+  }
 
   if (auto d = tryDir(steamuserDocumentsDir.absolutePath())) {
     return *d;
@@ -115,7 +114,7 @@ QString GameGamebryo::determineMyGamesPath(const QString& gameName,
           tryDir(QStandardPaths::standardLocations(QStandardPaths::DocumentsLocation)
                      .first())) {
     return *d;
-                     }
+  }
   return {};
 }
 

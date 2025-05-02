@@ -18,8 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 #include "gamebryolocalsavegames.h"
 #include "registry.h"
-#include <QtDebug>
 #include <QSettings>
+#include <QtDebug>
 #include <iprofile.h>
 #include <stddef.h>
 #include <string>
@@ -58,11 +58,11 @@ bool GamebryoLocalSavegames::prepareProfile(MOBase::IProfile* profile)
 {
   bool enable = profile->localSavesEnabled();
 
-  QString basePath    = profile->localSettingsEnabled()
-                            ? profile->absolutePath()
-                            : localGameDirectory().absolutePath();
-  QString iniFilePath = basePath + "/" + m_IniFileName;
-  QString saveIniFilePath     = profile->absolutePath() + "/" + "savepath.ini";
+  QString basePath        = profile->localSettingsEnabled()
+                                ? profile->absolutePath()
+                                : localGameDirectory().absolutePath();
+  QString iniFilePath     = basePath + "/" + m_IniFileName;
+  QString saveIniFilePath = profile->absolutePath() + "/" + "savepath.ini";
 
   QSettings ini(iniFilePath, QSettings::IniFormat);
 
@@ -71,7 +71,6 @@ bool GamebryoLocalSavegames::prepareProfile(MOBase::IProfile* profile)
 
   static const QString sLocalSavePath       = u"General/sLocalSavePath"_s;
   static const QString bUseMyGamesDirectory = u"General/bUseMyGamesDirectory"_s;
-
 
   // Get the current sLocalSavePath
   QString currentPath = ini.value(sLocalSavePath, skipMe).toString();

@@ -153,8 +153,8 @@ uint16_t GameGamebryo::getArch(QString const& program) const
   // brief summary of this function:
   // seek to 0x3C
   // the next 4 bytes contain either "PE\0\0" or the offset of the aforementioned value,
-  // in which case seek to the offset, read the 2 bytes after "PE\0\0" and return them as
-  // uint16_t
+  // in which case seek to the offset, read the 2 bytes after "PE\0\0" and return them
+  // as uint16_t
 
   static constexpr uint16_t offset = 0x3C;
   static constexpr char pe[4]      = {'P', 'E', 0, 0};
@@ -164,9 +164,8 @@ uint16_t GameGamebryo::getArch(QString const& program) const
   realPath = program;
 #else
   // todo: check if this is required
-  realPath =
-    "\\\\?\\" +
-    QDir::toNativeSeparators(this->gameDirectory().absoluteFilePath(program));
+  realPath = "\\\\?\\" +
+             QDir::toNativeSeparators(this->gameDirectory().absoluteFilePath(program));
 #endif
 
   QFile file(realPath);
@@ -182,7 +181,7 @@ uint16_t GameGamebryo::getArch(QString const& program) const
   if (file.read(reinterpret_cast<char*>(&peValue), sizeof(uint32_t)) !=
       sizeof(uint32_t)) {
     return 0;
-      }
+  }
 
   if (memcmp(&peValue, pe, sizeof(uint32_t)) != 0) {
     // read value is offset, seek to real value
@@ -193,7 +192,7 @@ uint16_t GameGamebryo::getArch(QString const& program) const
     if (file.read(reinterpret_cast<char*>(&peValue), sizeof(uint32_t)) !=
         sizeof(uint32_t)) {
       return 0;
-        }
+    }
     if (memcmp(&peValue, pe, sizeof(uint32_t)) != 0) {
       return 0;
     }
@@ -203,7 +202,7 @@ uint16_t GameGamebryo::getArch(QString const& program) const
   if (file.read(reinterpret_cast<char*>(&value), sizeof(uint16_t)) !=
       sizeof(uint16_t)) {
     return 0;
-      }
+  }
 
   return value;
 }

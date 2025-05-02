@@ -6,8 +6,6 @@
 #include <winreg.h>
 #include <winver.h>
 
-
-
 WORD GameGamebryo::getArch(QString const& program) const
 {
   WORD arch = 0;
@@ -49,8 +47,8 @@ WORD GameGamebryo::getArch(QString const& program) const
 
   arch = peHdr->FileHeader.Machine;
 
-  cleanup:  // release all of our handles
-    FindClose(hFind);
+cleanup:  // release all of our handles
+  FindClose(hFind);
   if (hFile != INVALID_HANDLE_VALUE)
     CloseHandle(hFile);
   if (hMapping != INVALID_HANDLE_VALUE)
@@ -73,7 +71,6 @@ QString GameGamebryo::localAppFolder()
   }
   return result;
 }
-
 
 std::unique_ptr<BYTE[]> GameGamebryo::getRegValue(HKEY key, LPCWSTR path, LPCWSTR value,
                                                   DWORD flags, LPDWORD type = nullptr)

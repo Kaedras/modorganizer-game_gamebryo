@@ -41,9 +41,7 @@ QStringList GamebryoDataArchives::getArchivesFromKey(const QString& iniFile,
 void GamebryoDataArchives::setArchivesToKey(const QString& iniFile, const QString& key,
                                             const QString& value)
 {
-  if (!MOBase::WriteRegistryValue(u"Archive"_s, key,
-                                  value,
-                                  iniFile)) {
+  if (!MOBase::WriteRegistryValue(u"Archive"_s, key, value, iniFile)) {
     qWarning("failed to set archives in \"%s\"", qUtf8Printable(iniFile));
   }
 }
