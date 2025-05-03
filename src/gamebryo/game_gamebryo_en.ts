@@ -147,12 +147,12 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="gamebryosavegame.cpp" line="101"/>
+        <location filename="gamebryosavegame.cpp" line="106"/>
         <source>failed to open %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="gamebryosavegame.cpp" line="111"/>
+        <location filename="gamebryosavegame.cpp" line="116"/>
         <source>wrong file format - expected %1 got &apos;%2&apos; for %3</source>
         <translation type="unfinished"></translation>
     </message>
