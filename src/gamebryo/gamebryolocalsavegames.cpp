@@ -41,7 +41,7 @@ MappingType GamebryoLocalSavegames::mappings(const QDir& profileSaveDir) const
 
 QString GamebryoLocalSavegames::localSavesDummy() const
 {
-  return "__MO_Saves\\";
+  return "__MO_Saves/";
 }
 
 QDir GamebryoLocalSavegames::localSavesDirectory() const
