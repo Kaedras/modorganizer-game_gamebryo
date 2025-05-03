@@ -98,8 +98,7 @@ static uint64_t genHash(const char* fileName)
       hash |= 0x80000000;
     }
 
-    uint64_t temp =
-        static_cast<uint64_t>(genHashInt(fileNameLowerU + 1, extU - 2));
+    uint64_t temp = static_cast<uint64_t>(genHashInt(fileNameLowerU + 1, extU - 2));
     temp += static_cast<uint64_t>(genHashInt(extU, extU + strlen(ext)));
 
     hash |= (temp & 0xFFFFFFFF) << 32;
@@ -129,8 +128,7 @@ void DummyBSA::writeHeader(QFile& file)
   writeUlong(header, 4, m_Version);
   writeUlong(header, 12, 0x01 | 0x02);  // has directories and has files.
   writeUlong(header, 24,
-             static_cast<uint32_t>(m_FolderName.length()) +
-                 1);                              // empty folder name
+             static_cast<uint32_t>(m_FolderName.length()) + 1);  // empty folder name
   writeUlong(header, 28, m_TotalFileNameLength);  // single character file name
 
   writeUlong(header, 32, 2);  // has dds
