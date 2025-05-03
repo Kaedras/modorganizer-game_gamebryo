@@ -260,9 +260,9 @@ void GamebryoSaveGame::FileWrapper::read(void* buff, std::size_t length)
 
 QImage GamebryoSaveGame::FileWrapper::readImage(int scale, bool alpha)
 {
-  unsigned long width;
+  uint32_t width;
   read(width);
-  unsigned long height;
+  uint32_t height;
   read(height);
   return readImage(width, height, scale, alpha);
 }

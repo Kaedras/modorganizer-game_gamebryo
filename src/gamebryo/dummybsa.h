@@ -34,7 +34,7 @@ public:
    * @brief constructor
    *
    **/
-  DummyBSA(unsigned long bsaVersion);
+  DummyBSA(uint32_t bsaVersion);
 
   /**
    * @brief write to the specified file
@@ -50,10 +50,10 @@ private:
   void writeFileRecordBlocks(QFile& file, const std::string& folderName);
 
 private:
-  unsigned long m_Version;
+  uint32_t m_Version;
   std::string m_FolderName;
   std::string m_FileName;
-  unsigned long m_TotalFileNameLength;
+  uint32_t m_TotalFileNameLength;
 };
 
 #endif  // DUMMYBSA_H

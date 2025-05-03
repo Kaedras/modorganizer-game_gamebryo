@@ -42,9 +42,9 @@ public:
 
   // Simple getters
   virtual QString getPCName() const { return m_PCName; }
-  virtual unsigned short getPCLevel() const { return m_PCLevel; }
+  virtual uint16_t getPCLevel() const { return m_PCLevel; }
   virtual QString getPCLocation() const { return m_PCLocation; }
-  virtual unsigned long getSaveNumber() const { return m_SaveNumber; }
+  virtual uint32_t getSaveNumber() const { return m_SaveNumber; }
 
   QStringList const& getPlugins() const { return m_DataFields.value()->Plugins; }
   QStringList const& getMediumPlugins() const
