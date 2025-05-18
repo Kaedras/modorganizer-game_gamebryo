@@ -21,6 +21,7 @@
 #include <QIcon>
 #include <QJsonDocument>
 #include <QSettings>
+#include <QStandardPaths>
 #include <QtDebug>
 #include <QtGlobal>
 
@@ -242,6 +243,15 @@ QString GameGamebryo::selectedVariant() const
 QString GameGamebryo::myGamesPath() const
 {
   return m_MyGamesPath;
+}
+
+QString GameGamebryo::localAppFolder()
+{
+  // return values:
+  // linux: ~/.config
+  // os x: ~/Library/Preferences
+  // windows: C:/Users/<USER>/AppData/Local
+  return QStandardPaths::standardLocations(QStandardPaths::AppDataLocation).first();
 }
 
 void GameGamebryo::copyToProfile(QString const& sourcePath,

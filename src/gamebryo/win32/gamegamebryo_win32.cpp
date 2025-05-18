@@ -62,16 +62,6 @@ cleanup:  // release all of our handles
          "/Loot.exe";
 }
 
-QString GameGamebryo::localAppFolder()
-{
-  QString result = getKnownFolderPath(FOLDERID_LocalAppData, false);
-  if (result.isEmpty()) {
-    // fallback: try the registry
-    result = getSpecialPath("Local AppData");
-  }
-  return result;
-}
-
 std::unique_ptr<BYTE[]> GameGamebryo::getRegValue(HKEY key, LPCWSTR path, LPCWSTR value,
                                                   DWORD flags, LPDWORD type = nullptr)
 {

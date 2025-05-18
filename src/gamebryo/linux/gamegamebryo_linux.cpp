@@ -2,6 +2,8 @@
 #include "stub.h"
 #include "vdf_parser.h"
 
+#include <steamutility.h>
+
 #include <QStandardPaths>
 #include <QString>
 
@@ -18,9 +20,16 @@ QString GameGamebryo::getLootPath()
   return {};
 }
 
-QString GameGamebryo::localAppFolder()
+QString GameGamebryo::localAppFolder(const QString& appID)
 {
-  STUB();
+  QString compatData = MOBase::findCompatDataByAppID(appID);
+
+  QString path =
+      compatData % QStringLiteral("/pfx/drive_c/users/steamuser/AppData/Local/");
+  if (QFile::exists(path)) {
+    return path;
+  }
+
   return {};
 }
 

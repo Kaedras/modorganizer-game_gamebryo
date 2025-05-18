@@ -107,6 +107,12 @@ protected:
   uint16_t getArch(QString const& program) const;
 
   static QString localAppFolder();
+
+#ifdef __unix__
+  // get location inside the wine prefix
+  static QString localAppFolder(const QString& appID);
+#endif
+
   // Arguably this shouldn't really be here but every gamebryo program seems to
   // use it
   static QString getLootPath();
