@@ -26,6 +26,19 @@ protected:
                                         const QString& filePath);
   virtual QStringList readPluginList(MOBase::IPluginList* pluginList);
 
+  /**
+   * @brief Returns the path of the plugins.txt file
+   * @note The linux-specific implementation does a case-insensitive lookup for the file name.
+   * This is required because Skyrim uses plugins.txt, while Oblivion and SkyrimSE use
+   * Plugins.txt
+   */
+  QString getPluginsPath() const;
+  /**
+   * @brief Returns the path of the loadorder.txt file
+   * @note The linux-specific implementation does a case-insensitive lookup for the file name.
+   */
+  QString getLoadOrderPath() const;
+
 protected:
   MOBase::IOrganizer* m_Organizer;
   QDateTime m_LastRead;

@@ -28,17 +28,16 @@ void GamebryoGamePlugins::writePluginLists(const IPluginList* pluginList)
     return;
   }
 
-  writePluginList(pluginList, m_Organizer->profile()->absolutePath() + "/plugins.txt");
-  writeLoadOrderList(pluginList,
-                     m_Organizer->profile()->absolutePath() + "/loadorder.txt");
+  writePluginList(pluginList, getPluginsPath());
+  writeLoadOrderList(pluginList, getLoadOrderPath());
 
   m_LastRead = QDateTime::currentDateTime();
 }
 
 void GamebryoGamePlugins::readPluginLists(MOBase::IPluginList* pluginList)
 {
-  QString loadOrderPath = organizer()->profile()->absolutePath() + "/loadorder.txt";
-  QString pluginsPath   = organizer()->profile()->absolutePath() + "/plugins.txt";
+  QString loadOrderPath = getLoadOrderPath();
+  QString pluginsPath   = getPluginsPath();
 
   bool loadOrderIsNew = !m_LastRead.isValid() || !QFileInfo(loadOrderPath).exists() ||
                         QFileInfo(loadOrderPath).lastModified() > m_LastRead;
@@ -62,8 +61,8 @@ void GamebryoGamePlugins::readPluginLists(MOBase::IPluginList* pluginList)
 
 QStringList GamebryoGamePlugins::getLoadOrder()
 {
-  QString loadOrderPath = organizer()->profile()->absolutePath() + "/loadorder.txt";
-  QString pluginsPath   = organizer()->profile()->absolutePath() + "/plugins.txt";
+  QString loadOrderPath = getLoadOrderPath();
+  QString pluginsPath   = getPluginsPath();
 
   bool loadOrderIsNew = !m_LastRead.isValid() || !QFileInfo(loadOrderPath).exists() ||
                         QFileInfo(loadOrderPath).lastModified() > m_LastRead;
@@ -202,7 +201,7 @@ QStringList GamebryoGamePlugins::readPluginList(MOBase::IPluginList* pluginList)
 
   // Determine plugin active state by the plugins.txt file.
   bool pluginsTxtExists = true;
-  QString filePath      = organizer()->profile()->absolutePath() + "/plugins.txt";
+  QString filePath      = getPluginsPath();
   QFile file(filePath);
   if (!file.open(QIODevice::ReadOnly)) {
     pluginsTxtExists = false;

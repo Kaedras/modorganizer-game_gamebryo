@@ -21,8 +21,8 @@ CreationGamePlugins::CreationGamePlugins(IOrganizer* organizer)
 
 QStringList CreationGamePlugins::getLoadOrder()
 {
-  QString loadOrderPath = organizer()->profile()->absolutePath() + "/loadorder.txt";
-  QString pluginsPath   = organizer()->profile()->absolutePath() + "/plugins.txt";
+  QString loadOrderPath = getLoadOrderPath();
+  QString pluginsPath   = getPluginsPath();
 
   bool loadOrderIsNew = !m_LastRead.isValid() || !QFileInfo(loadOrderPath).exists() ||
                         QFileInfo(loadOrderPath).lastModified() > m_LastRead;
@@ -115,7 +115,7 @@ QStringList CreationGamePlugins::readPluginList(MOBase::IPluginList* pluginList)
     }
   }
 
-  QString filePath = organizer()->profile()->absolutePath() + "/plugins.txt";
+  QString filePath = getPluginsPath();
   QFile file(filePath);
   if (!file.open(QIODevice::ReadOnly)) {
     qWarning("%s not found", qUtf8Printable(filePath));
